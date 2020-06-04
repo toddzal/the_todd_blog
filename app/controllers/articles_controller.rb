@@ -1,6 +1,17 @@
 class ArticlesController < ApplicationController
 include ArticlesHelper
 #before_action :require_login, except: [:show]
+before_action :log_impressions, :only=> [:show]
+
+    def log_impressions
+        @article = Article.find(params[:id])
+        a = @article.view_count
+        if a == nil
+            a = 1
+        else
+            a += 1
+        end
+    end
 
     def index
         @articles = Article.all
@@ -10,6 +21,15 @@ include ArticlesHelper
         @comment = Comment.new
         @comment.article_id = @article.id
 
+        if @article.view_count == nil
+            Article.find(params[:id]).update_column(:view_count, 1)
+        else
+            Article.find(params[:id]).update_column(:view_count, @article.view_count + 1)
+        end
+
+        if @article.year_month_key == nil
+            Article.find(params[:id]).update_column(:year_month_key, @article.created_at.to_s.slice(0,7))
+        end
     end
     def new
         @article = Article.new

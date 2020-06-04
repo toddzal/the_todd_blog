@@ -1,0 +1,10 @@
+<h1>Top 3 Articles</h1>
+
+<ul id="articles">
+  <% @articles.each do |article| %>
+    <li>
+      <%= link_to article.title, article_path(article) %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "<< Back to Articles List", articles_path %>

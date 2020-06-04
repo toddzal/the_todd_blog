@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>TheToddBlog</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+</head>
 
 <body>
-  <div id="container">
-    <div id="content">
-      <%= yield %>
-      <hr>
-      <h6>
-        <% if logged_in? %>
-          <%= "Logged in as #{current_user.email}" %>
-          <%= link_to "(logout)", logout_path %>
-        <% else %>
-          <%= link_to "(login)", login_path %>
-        <% end %>
-      </h6>
+
+    <div id="container">
+        <header>
+            <div class="nav-bar-left">
+                <div id="the">
+                    The
+                </div>
+                <div id="todd">
+                    Todd
+                </div>
+            </div>
+            <div class="nav-bar-right">
+                <% if logged_in? %>
+                    <%= link_to "SIGN OUT", logout_path,{id: "sign-button"} %>
+                <% else %>
+                    <%= link_to "SIGN IN", login_path,{id: "sign-button"} %>
+                <% end %>
+            </div>
+        </header>
+        <div id="content-wrapper">
+            <div id="side-bar">
+                <hr id="top-hr"/>
+                <%= link_to "All Articles", articles_path, id: "top_article_link" %>
+                <hr />
+                <%= link_to "Top Articles", article_top_index_path, id: "top_article_link" %>
+                <hr/>
+
+                <%= link_to "Tags", tags_path, id: "top_article_link" %>
+            </div>
+            <div id="content">
+                <%= yield %>
+            </div>
+        </div>
+        <footer>
+            <% if logged_in? %>
+            <%= "Logged in as #{current_user.email}" %>
+            <% end %>
+        </footer>
     </div>
-  </div>
 </body>
 
 </html>

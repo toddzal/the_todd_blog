@@ -1,0 +1,2 @@
+module ArticleTopHelper
+end
