@@ -1,12 +1,18 @@
+
 <h1>All Articles</h1>
 
-<ul id="articles">
+
   <% @articles.each do |article| %>
-    <li>
-      <%= link_to article.title, article_path(article) %>
-    </li>
+    <div class="article-container">
+        <div class="article-header">
+          <h3 class="article-header-h3"><%= article.title%></h3>
+        </div>
+      <div class="article-summary">
+              <%= article.body.truncate(40) %><%= link_to "Show Article", article_path(article), id: "more" %>
+      </div>
+    </div>
   <% end %>
-</ul>
 <% if logged_in? %>
 <%= link_to "Create a New Article", new_article_path, class: "new_article" %>
 <% end %>
+
